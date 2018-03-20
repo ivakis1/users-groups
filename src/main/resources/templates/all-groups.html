@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="~{fragments/head}"></div>
+<body class="container">
+<div th:replace="~{fragments/header}"></div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="group,iter : ${groupsList}" th:object="${group}">
+        <tr>
+            <td th:text="${iter.index} + 1"></td>
+            <td th:text="*{name}"></td>
+            <td><a th:href="@{/users/mygroups/{id}(id=${group.id})}" class="btn btn-primary">Join</a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>

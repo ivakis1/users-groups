@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default" xmlns:th="http://www.w3.org/1999/xhtml"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <div class="container-fluid main-header">
+    <div class="navbar-header main-brand">
+      <a class="navbar-brand navbar-link" href="/">Users & Groups</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/" class="navbar-link">Home</a></li>
+
+      <th:block sec:authorize="isAnonymous()" >
+        <li><a class="navbar-link" href="/users/login">Login</a></li>
+        <li><a class="navbar-link" href="/users/register">Register</a></li>
+      </th:block>
+
+      <li><a sec:authorize="hasRole('ADMIN')" href="/users/all" class="navbar-link">All users</a></li>
+      <li class="logout" sec:authorize="isAuthenticated()">
+        <form name="logoutForm" th:action="@{/logout}" method="post">
+          <input class="navbar-link" type="submit" value="Sign Out"/>
+        </form>
+      <li sec:authorize="isAuthenticated()" class="dropdown">
+        <a class="dropdown-toggle navbar-link" data-toggle="dropdown" href="#">Groups
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="navbar-link" href="/users/myGroups">My groups</a></li>
+          <li><a class="navbar-link" href="/users/joinGroup">Join group</a></li>
+          <li><a class="navbar-link" href="/users/createGroup">Create group</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
